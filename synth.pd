@@ -1,4 +1,4 @@
-#N canvas 716 32 1168 787 12;
+#N canvas 642 177 1168 787 12;
 #X obj 71 566 osc~;
 #X obj 71 352 vsl 20 170 0 127 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 62 729 dac~;
@@ -28,9 +28,10 @@
 #X obj 394 181 print via osc:;
 #X obj 308 117 print raw;
 #X obj 394 62 netreceive -u -b 2666;
-#X obj 375 239 t b;
 #X text 422 219 TODO - actual routing goes here \, with more voices;
 #X obj 393 109 oscparse;
+#X obj 375 239 t b b;
+#X obj 174 383 random 127;
 #X connect 0 0 4 0;
 #X connect 0 0 9 0;
 #X connect 1 0 3 0;
@@ -46,8 +47,10 @@
 #X connect 13 0 9 1;
 #X connect 14 0 18 0;
 #X connect 15 0 16 0;
-#X connect 15 0 19 0;
+#X connect 15 0 21 0;
 #X connect 18 0 17 0;
-#X connect 18 0 21 0;
-#X connect 19 0 7 0;
-#X connect 21 0 15 0;
+#X connect 18 0 20 0;
+#X connect 20 0 15 0;
+#X connect 21 0 7 0;
+#X connect 21 1 22 0;
+#X connect 22 0 1 0;
