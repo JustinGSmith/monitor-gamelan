@@ -1,0 +1,19 @@
+#!/bin/sh
+
+CMD=/usr/bin/ss
+
+# no headers
+FLAGS="-H"
+# show TCP
+FLAGS="$FLAGS -t"
+# one line
+FLAGS="$FLAGS -O"
+# numeric ports and data count
+FLAGS="$FLAGS -n"
+# DNS resolution
+FLAGS="$FLAGS -r"
+# all ports, including previously established TCP ports
+FLAGS="$FLAGS -a"
+
+
+$CMD $FLAGS

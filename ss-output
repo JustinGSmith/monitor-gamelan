@@ -1,0 +1,14 @@
+LISTEN 0      4096          localhost:631                                              0.0.0.0:*  
+LISTEN 0      4096     _localdnsproxy:53                                               0.0.0.0:*  
+LISTEN 0      8             localhost:6008                                             0.0.0.0:*  
+LISTEN 0      4096   _localdnsstub%lo:53                                               0.0.0.0:*  
+ESTAB  0      0                   hog:60110             93.243.107.34.bc.googleusercontent.com:443
+ESTAB  0      0                   hog:32832 ec2-44-235-135-203.us-west-2.compute.amazonaws.com:443
+ESTAB  0      0                   hog:54942               44.51.49.34.bc.googleusercontent.com:443
+ESTAB  0      0                   hog:41572                                     172.64.152.233:443
+LISTEN 0      4096      ip6-localhost:631                                                 [::]:*  
+LISTEN 0      4096                  *:22                                                     *:*  
+ESTAB  0      0                   hog:53974                          nuq04s35-in-x05.1e100.net:443
+ESTAB  0      0                   hog:49940                                  [2620:1ec:50::12]:443
+ESTAB  0      0                   hog:55542                          sfo03s33-in-x0e.1e100.net:443
+ESTAB  0      0                   hog:42500                          sfo07s26-in-x03.1e100.net:443
