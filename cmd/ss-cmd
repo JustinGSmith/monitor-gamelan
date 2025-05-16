@@ -15,5 +15,8 @@ FLAGS="$FLAGS -r"
 # all ports, including previously established TCP ports
 FLAGS="$FLAGS -a"
 
-
-$CMD $FLAGS
+while true
+do
+  $CMD $FLAGS
+  sleep 1
+done

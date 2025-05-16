@@ -1,7 +1,20 @@
-# TODO - note python-osc is installed to my ~/py-local/
-# so start python as ~/bin/python3
 import re
 from pythonosc import udp_client
+
+# hash map from domains to numbers
+domains = {}
+domain_count = 0
+def map_domain(foreign):
+    global domains, domain_count
+    # eventually (maybe?) params too
+    val = domains.get(foreign, False)
+    if (val):
+        return val
+    else:
+        domains[foreign] = domain_count
+        val = domain_count
+        domain_count = domain_count+1
+        return val
 
 def is_unresolved(domain_parts):
     for part in domain_parts:
@@ -24,8 +37,10 @@ def process_domain(foreign_address):
 def process_line(line):
     parsed = line.split()
     foreign_address = parsed[4]
-    foreign_domain = process_domain(foreign_address)
-    print(parsed, foreign_domain, '\n')
+    foreign_domain = foreign_address # process_domain(foreign_address)
+    mapped = map_domain(foreign_domain)
+    print(parsed, foreign_domain, mapped, '\n')
+    return mapped
 
 def main():
     running = True
@@ -37,7 +52,7 @@ def main():
             connection_info = process_line(input())
             # TODO some magic goes here
             # use above connection_info info to construct this message
-            client.send_message("/event/", 1)
+            client.send_message("/event/", connection_info)
         except EOFError:
             running = False
         lines = lines + 1

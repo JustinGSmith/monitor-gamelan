@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cmd/ss-cmd | python3 py/network_gamelan/monitor.py
