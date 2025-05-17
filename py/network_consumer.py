@@ -1,5 +1,5 @@
 import re
-from pythonosc import udp_client
+import gamelan_monitor
 
 # hash map from domains to numbers
 domains = {}
@@ -22,6 +22,7 @@ def is_unresolved(domain_parts):
             return False
     return True
 
+# currently unused, will be used in more selective monitor definitions
 def process_domain(foreign_address):
     domain = foreign_address.split(':')
     parts = domain[0].split('.')
@@ -34,27 +35,25 @@ def process_domain(foreign_address):
     else:
         return foreign_address
 
-def process_line(line):
-    parsed = line.split()
-    foreign_address = parsed[4]
-    foreign_domain = foreign_address # process_domain(foreign_address)
-    mapped = map_domain(foreign_domain)
-    print(parsed, foreign_domain, mapped, '\n')
-    return mapped
+# TODO - other monitors with more picky accept criteria
+class RemoteHost:
+    def accept(self, parsed):
+        return parsed
 
-def main():
-    running = True
-    lines = 0
-    client = udp_client.SimpleUDPClient("127.0.0.1", 2666)
-    while (running):
-        try:
-            # receiving socket events from STDIN
-            connection_info = process_line(input())
-            # TODO some magic goes here
-            # use above connection_info info to construct this message
-            client.send_message("/event/", connection_info)
-        except EOFError:
-            running = False
-        lines = lines + 1
+    def consume(self, parsed):
+        foreign_domain = parsed[4]
+        # print("mapping domain:", foreign_domain, "\n")
+        remote = map_domain(foreign_domain)
+        return ["/remote/", remote]
 
-main()
+def get_line():
+    try:
+        raw = input()
+        line = raw.split()
+    except EOFError:
+        line = False
+    return line
+
+monitors = [RemoteHost()]
+
+gamelan_monitor.monitor(["127.0.0.1", 2666], get_line, monitors)

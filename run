@@ -1,3 +1,5 @@
 #!/bin/sh
 
-cmd/ss-cmd | python3 py/network_gamelan/monitor.py
+PYTHONPATH=./py:$PYTHONPATH
+
+cmd/ss-cmd | python3 py/network_consumer.py
